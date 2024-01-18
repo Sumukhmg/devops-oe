@@ -37,18 +37,10 @@ jobs:
         if: success()
         uses: rtCamp/action-slack-notify@v2
         with:
-          status: ${{ job.status }}
-          channel: '#devops-oe-sumukh'
-          text: 'Build and deployment successful! :tada:'
-          icon_emoji: ':tada:'
-          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
 
       - name: Notify Slack on Failure
         if: failure()
         uses: rtCamp/action-slack-notify@v2
         with:
-          status: ${{ job.status }}
-          channel: '#devops-oe-sumukh'
-          text: 'Build and deployment failed. :x:'
-          icon_emoji: ':x:'
-          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
