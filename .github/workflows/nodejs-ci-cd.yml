@@ -1,0 +1,52 @@
+name: Node.js CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build and Deploy Docker Container
+        run: |
+          docker build -t my-node-microservice .
+          docker run -p 3000:3000 -d my-node-microservice
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Notify Slack on Success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        with:
+          status: ${{ job.status }}
+          channel: '#devops-oe-sumukh'
+          text: 'Build and deployment successful! :tada:'
+          icon_emoji: ':tada:'
+
+      - name: Notify Slack on Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        with:
+          status: ${{ job.status }}
+          channel: '#devops-oe-sumukh'
+          text: 'Build and deployment failed. :x:'
+          icon_emoji: ':x:'
