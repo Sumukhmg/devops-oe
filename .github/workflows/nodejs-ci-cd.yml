@@ -13,16 +13,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-         - name: Slack Webhook for GitHub Actions
-         uses: craftech-io/slack-action@v1
+      - name: Slack Webhook for GitHub Actions
+        uses: craftech-io/slack-action@v1
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-          
-      
-            
 
       - name: Install Dependencies
         run: npm install
@@ -49,4 +46,4 @@ jobs:
         if: failure()
         uses: rtCamp/action-slack-notify@v2
         with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL}}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
