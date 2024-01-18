@@ -40,10 +40,10 @@ jobs:
         if: success()
         uses: rtCamp/action-slack-notify@v2
         with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
 
       - name: Notify Slack on Failure
         if: failure()
         uses: rtCamp/action-slack-notify@v2
         with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
