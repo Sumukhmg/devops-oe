@@ -41,6 +41,7 @@ jobs:
           channel: '#devops-oe-sumukh'
           text: 'Build and deployment successful! :tada:'
           icon_emoji: ':tada:'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
 
       - name: Notify Slack on Failure
         if: failure()
@@ -50,3 +51,4 @@ jobs:
           channel: '#devops-oe-sumukh'
           text: 'Build and deployment failed. :x:'
           icon_emoji: ':x:'
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
